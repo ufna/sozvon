@@ -8,6 +8,12 @@ import { v4 } from "uuid";
 import appConfig from "../config.js";
 import { isValid } from "../utils/utils.js";
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isValidRoomId(value) {
+	return typeof value === "string" && UUID_RE.test(value);
+}
+
 const router = express.Router();
 
 router.post("/room/create", (req, res) => {
@@ -18,6 +24,11 @@ router.post("/room/create", (req, res) => {
 
 router.post("/room/token/livekit/:room", async(req, res) => {
 	const { room } = req.params;
+
+	if (!isValidRoomId(room)) {
+		return res.status(400).json({ error: "Invalid room ID" });
+	}
+
 	let { identity } = req.body;
 
 	if (!isValid(identity)) {
@@ -40,13 +51,18 @@ router.post("/room/token/livekit/:room", async(req, res) => {
 
 	res.json({
 		identity: identity,
-		socket: `wss://${appConfig.host}`,
+		socket: appConfig.devMode ? `ws://${appConfig.host}:${appConfig.liveKit.port}` : `wss://${appConfig.host}`,
 		token: await accessToken.toJwt(),
 	});
 });
 
 router.post("/room/token/p2p/:room", (req, res) => {
 	const { room } = req.params;
+
+	if (!isValidRoomId(room)) {
+		return res.status(400).json({ error: "Invalid room ID" });
+	}
+
 	let { identity } = req.body;
 
 	if (!isValid(identity)) {
