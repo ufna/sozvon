@@ -153,9 +153,18 @@
 	height: 100%;
 
 	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.conference_grid {
+	width: calc(var(--cols, 1) * var(--tile-width, 100%));
+	max-width: 100%;
+	max-height: 100%;
+	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-content: stretch;
+	align-content: center;
 }
 
 .conference_participants_count {
@@ -214,7 +223,7 @@
 }
 
 .conference_user_container_default {
-	flex: 0 0 calc(100% / var(--cols)); width: calc(100% / var(--cols)); height: calc(100% / var(--rows)); min-width: 0; min-height: 0; aspect-ratio: unset;
+	flex: 0 0 var(--tile-width, 100%); width: var(--tile-width, 100%); height: var(--tile-height, auto); min-width: 0; min-height: 0;
 }
 
 .conference_user_container_minimized {

@@ -181,6 +181,36 @@ test("four participants keep an even grid on desktop and phone", async({ page })
 	}
 });
 
+test("camera-off cards keep their proportions and stay centered as the room resizes", async({ page }) => {
+	for (const people of [ 1, 2, 3 ]) {
+		await page.goto(`/design?embed=1&view=call&people=${people}`);
+		const chat = page.getByRole("button", { name: "Чат", exact: true });
+		if (await chat.getAttribute("aria-pressed") === "true") await chat.click();
+		const participants = page.getByRole("group", { name: "Участники", exact: true });
+		await expect(participants.locator(":scope > div")).toHaveCount(people);
+		for (const viewport of [ { width: 1178, height: 920 }, { width: 390, height: 844 }, { width: 844, height: 390 } ]) {
+			await page.setViewportSize(viewport);
+			await expect.poll(() => participants.evaluate((group) => {
+				const available = group.parentElement.getBoundingClientRect();
+				const grid = group.getBoundingClientRect();
+				const ratio = window.innerWidth <= 640 ? 3 / 4 : 4 / 3;
+				return Math.abs(grid.x + grid.width / 2 - available.x - available.width / 2) < 1 &&
+					Math.abs(grid.y + grid.height / 2 - available.y - available.height / 2) < 1 &&
+					Array.from(group.children).every((tile) => {
+						const card = tile.firstElementChild.getBoundingClientRect();
+						const robot = tile.querySelector("img").getBoundingClientRect();
+						return Math.abs(card.width / card.height - ratio) < 0.01 && card.width <= 640.1 &&
+							card.left >= available.left && card.right <= available.right + 1 &&
+							card.top >= available.top && card.bottom <= available.bottom + 1 &&
+							Math.abs(robot.x + robot.width / 2 - card.x - card.width / 2) < 1 &&
+							Math.abs(robot.y + robot.height / 2 - card.y - card.height / 2) < 1;
+					});
+			})).toBe(true);
+			expect(await page.locator("body").evaluate((body) => body.scrollWidth <= window.innerWidth)).toBe(true);
+		}
+	}
+});
+
 test("editing a nickname keeps its position and size", async({ page }) => {
 	await page.goto("/design?embed=1&view=call");
 	const name = page.getByRole("button", { name: /изменить имя/ });

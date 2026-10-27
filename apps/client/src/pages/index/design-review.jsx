@@ -16,6 +16,8 @@ const views = [ [ "home", "Главная" ], [ "lobby", "Вход" ], [ "call",
 const validViews = views.map(([ id ]) => id);
 
 function prepareRoom(entered) {
+	const requestedPeople = Number(new URLSearchParams(location.search).get("people"));
+	const people = Number.isInteger(requestedPeople) && requestedPeople >= 1 && requestedPeople <= 4 ? requestedPeople : 4;
 	const room = new RoomData();
 	room.deserialize({
 		roomId: "design-preview", state: "connected", entered,
@@ -26,7 +28,7 @@ function prepareRoom(entered) {
 			{ identity: "preview-misha", name: "Миша Волков", connected: true, microphone: true, speaking: true },
 			{ identity: "preview-katya", name: "Катя Белова", connected: true, microphone: false },
 			{ identity: "preview-dan", name: "Даня Лебедев", connected: true, microphone: true },
-		],
+		].slice(0, people),
 		messages: [
 			{ identity: "preview-misha", text: "Всем привет! Рад вас видеть 👋", timestamp: new Date(2026, 9, 26, 14, 30).getTime() },
 			{ identity: "preview-katya", text: "Привет! Сейчас включу микрофон.", timestamp: new Date(2026, 9, 26, 14, 30).getTime() },
@@ -113,9 +115,10 @@ function LogoGallery({ palette }) {
 
 function MobileReview({ palette }) {
 	const [ screen, setScreen ] = useState(() => new URLSearchParams(location.search).get("screen") === "lobby" ? "lobby" : "call");
+	const people = new URLSearchParams(location.search).get("people") || "4";
 	return <div className={styles.mobile_review}>
 		<div className={styles.mobile_screens} role="group" aria-label="Экран на телефоне"><button aria-pressed={screen === "lobby"} onClick={() => setScreen("lobby")}>Вход</button><button aria-pressed={screen === "call"} onClick={() => setScreen("call")}>Комната</button></div>
-		<div className={styles.mobile_device}><iframe key={screen} title="Мобильный интерфейс" src={`/design?embed=1&view=${screen}&theme=${palette}`} /></div>
+		<div className={styles.mobile_device}><iframe key={screen} title="Мобильный интерфейс" src={`/design?embed=1&view=${screen}&theme=${palette}&people=${encodeURIComponent(people)}`} /></div>
 	</div>;
 }
 

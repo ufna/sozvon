@@ -4,7 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { BackgroundBlur, supportsBackgroundProcessors } from "@livekit/track-processors";
 import { ConnectionState, LocalVideoTrack, Track } from "livekit-client";
 import { runInAction } from "mobx";
-import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
+import React, { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import Brand from "@/components/brand.jsx";
 import Icon from "@/components/icon.jsx";
@@ -69,44 +69,51 @@ function ConferenceDefaultLayout({ users, onEnterTheater, preview = false }) {
 	});
 
 
-	const [ cols, setCols ] = useState(null);
+	const hasVideo = useData(() => users.some((user) => user.connected && (user.camera || user.screencast)), [ users ]);
+	const [ layout, setLayout ] = useState(null);
 	const ref = useRef(null);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const el = ref.current;
 		if (!el) return;
 
 		function update() {
 			if (el.clientWidth === 0 || el.clientHeight === 0) return;
-			const ratio = window.matchMedia("(max-width: 640px)").matches ? 4 / 3 : 9 / 16;
-			setCols(computeColumns(el.clientWidth, el.clientHeight, array.length, ratio));
+			const mobile = window.matchMedia("(max-width: 640px)").matches;
+			const ratio = mobile ? 3 / 4 : hasVideo ? 16 / 9 : 4 / 3;
+			setLayout(computeGrid(el.clientWidth, el.clientHeight, array.length, ratio, mobile ? 8 : 12, hasVideo ? Infinity : 640));
 		}
 
 		update();
 		const observer = new ResizeObserver(update);
 		observer.observe(el);
 		return () => observer.disconnect();
-	}, [ array.length ]);
+	}, [ array.length, hasVideo ]);
 
-	return <div className={styles.conference_layout_default} role="group" aria-label={t("conference.participants")} style={{ "--cols": cols || 1, "--rows": Math.ceil(array.length / (cols || 1)) || 1 }} ref={ref}>
-		{array}
+	return <div className={styles.conference_layout_default} ref={ref}>
+		<div className={styles.conference_grid} role="group" aria-label={t("conference.participants")} style={layout ? { "--cols": layout.columns, "--tile-width": `${layout.width}px`, "--tile-height": `${layout.height}px` } : undefined}>
+			{array}
+		</div>
 	</div>;
 }
 
-function computeColumns(containerWidth, containerHeight, count, ratio = 9 / 16) {
-	let bestColumns = 1;
-	let bestScore = Infinity;
-	for (let columns = 1; columns <= count; columns++) {
+function computeGrid(containerWidth, containerHeight, count, ratio, gap, maxWidth) {
+	let best = { columns: 1, width: 0, height: 0 };
+	let bestArea = -1;
+	let bestRows = Infinity;
+	for (let columns = 1; columns <= Math.max(1, count); columns++) {
 		const rows = Math.ceil(count / columns);
-		const cellRatio = (containerHeight / rows) / (containerWidth / columns);
-		const emptyCells = (columns * rows - count) / (columns * rows);
-		const score = Math.abs(Math.log(cellRatio / ratio)) + emptyCells;
-		if (score < bestScore) {
-			bestScore = score;
-			bestColumns = columns;
+		const width = Math.max(0, Math.min(containerWidth / columns - gap, (containerHeight / Math.max(1, rows) - gap) * ratio, maxWidth));
+		const area = width * width / ratio;
+		if (area > bestArea + 1 || Math.abs(area - bestArea) <= 1 && rows < bestRows) {
+			// Round down to the browser's layout precision so the last card never wraps by a fraction.
+			const fittedWidth = Math.floor(width * 64) / 64;
+			best = { columns, width: fittedWidth + gap, height: fittedWidth / ratio + gap };
+			bestArea = area;
+			bestRows = rows;
 		}
 	}
-	return bestColumns;
+	return best;
 }
 
 function ConferenceFullscreenLayout({ users, maximizedUser, maximizedChannel, theater, onTheater, preview = false }) {
@@ -961,7 +968,7 @@ export function Conference({ preview = false }) {
 
 	const [ settingsOpen, setSettingsOpen ] = useState(false);
 	const [ theater, setTheater ] = useState(false);
-	const [ chatOpen, setChatOpen ] = useState(() => preview && window.innerWidth > 900);
+	const [ chatOpen, setChatOpen ] = useState(() => preview && window.innerWidth > 900 && new URLSearchParams(location.search).get("chat") !== "0");
 	const [ chatUnread, setChatUnread ] = useState(false);
 	const [ copyToast, setCopyToast ] = useState(false);
 	const [ volumeOpen, setVolumeOpen ] = useState(false);
