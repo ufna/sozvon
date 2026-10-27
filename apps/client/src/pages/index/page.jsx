@@ -81,7 +81,7 @@ function ConferenceDefaultLayout({ users, onEnterTheater, preview = false }) {
 			if (el.clientWidth === 0 || el.clientHeight === 0) return;
 			const mobile = window.matchMedia("(max-width: 640px)").matches;
 			const ratio = mobile ? 3 / 4 : hasVideo ? 16 / 9 : 4 / 3;
-			setLayout(computeGrid(el.clientWidth, el.clientHeight, array.length, ratio, mobile ? 8 : 12, hasVideo ? Infinity : 640));
+			setLayout(computeGrid(el.clientWidth, el.clientHeight, array.length, ratio, mobile ? 8 : 12));
 		}
 
 		update();
@@ -97,13 +97,13 @@ function ConferenceDefaultLayout({ users, onEnterTheater, preview = false }) {
 	</div>;
 }
 
-function computeGrid(containerWidth, containerHeight, count, ratio, gap, maxWidth) {
+function computeGrid(containerWidth, containerHeight, count, ratio, gap) {
 	let best = { columns: 1, width: 0, height: 0 };
 	let bestArea = -1;
 	let bestRows = Infinity;
 	for (let columns = 1; columns <= Math.max(1, count); columns++) {
 		const rows = Math.ceil(count / columns);
-		const width = Math.max(0, Math.min(containerWidth / columns - gap, (containerHeight / Math.max(1, rows) - gap) * ratio, maxWidth));
+		const width = Math.max(0, Math.min(containerWidth / columns - gap, (containerHeight / Math.max(1, rows) - gap) * ratio));
 		const area = width * width / ratio;
 		if (area > bestArea + 1 || Math.abs(area - bestArea) <= 1 && rows < bestRows) {
 			// Round down to the browser's layout precision so the last card never wraps by a fraction.

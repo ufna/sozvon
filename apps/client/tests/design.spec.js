@@ -181,14 +181,14 @@ test("four participants keep an even grid on desktop and phone", async({ page })
 	}
 });
 
-test("camera-off cards keep their proportions and stay centered as the room resizes", async({ page }) => {
+test("camera-off cards grow to fill the room while keeping their proportions", async({ page }) => {
 	for (const people of [ 1, 2, 3 ]) {
 		await page.goto(`/design?embed=1&view=call&people=${people}`);
 		const chat = page.getByRole("button", { name: "Чат", exact: true });
 		if (await chat.getAttribute("aria-pressed") === "true") await chat.click();
 		const participants = page.getByRole("group", { name: "Участники", exact: true });
 		await expect(participants.locator(":scope > div")).toHaveCount(people);
-		for (const viewport of [ { width: 1178, height: 920 }, { width: 390, height: 844 }, { width: 844, height: 390 } ]) {
+		for (const viewport of [ { width: 1920, height: 1080 }, { width: 1178, height: 920 }, { width: 390, height: 844 }, { width: 844, height: 390 } ]) {
 			await page.setViewportSize(viewport);
 			await expect.poll(() => participants.evaluate((group) => {
 				const available = group.parentElement.getBoundingClientRect();
@@ -196,10 +196,11 @@ test("camera-off cards keep their proportions and stay centered as the room resi
 				const ratio = window.innerWidth <= 640 ? 3 / 4 : 4 / 3;
 				return Math.abs(grid.x + grid.width / 2 - available.x - available.width / 2) < 1 &&
 					Math.abs(grid.y + grid.height / 2 - available.y - available.height / 2) < 1 &&
+					Math.min(Math.abs(grid.width - available.width), Math.abs(grid.height - available.height)) < 1 &&
 					Array.from(group.children).every((tile) => {
 						const card = tile.firstElementChild.getBoundingClientRect();
 						const robot = tile.querySelector("img").getBoundingClientRect();
-						return Math.abs(card.width / card.height - ratio) < 0.01 && card.width <= 640.1 &&
+						return Math.abs(card.width / card.height - ratio) < 0.01 &&
 							card.left >= available.left && card.right <= available.right + 1 &&
 							card.top >= available.top && card.bottom <= available.bottom + 1 &&
 							Math.abs(robot.x + robot.width / 2 - card.x - card.width / 2) < 1 &&
