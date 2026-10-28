@@ -38,8 +38,5 @@ photos or live call recordings are used in these documentation captures.
 The social image is rendered from the checked-in SVG source.
 [Provenance and reproduction](docs/assets/README.md).
 
-## Release review
-
-A full audit of existing binary assets, font provenance and transitive dependency
-notices remains part of the pre-publication rights review. This document records
-known license information; it does not mark that review complete.
+Redistributions must preserve the applicable dependency and asset notices. Check
+new binary assets, fonts and transitive dependencies when preparing a release.

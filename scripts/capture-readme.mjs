@@ -60,6 +60,10 @@ try {
  await save("settings");
  await open("call", { width: 390, height: 844 });
  await save("mobile");
+ await page.locator("summary").click();
+ await page.getByRole("button", { name: "Safe driving", exact: true }).click();
+ await page.getByRole("button", { name: "Tap to mute", exact: true }).waitFor();
+ await save("driver-mode");
  await open("lobby", { width: 390, height: 844 });
  await save("mobile-lobby");
  if (errors.length) throw new Error(errors.join("\n"));

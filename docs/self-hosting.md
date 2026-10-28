@@ -99,8 +99,8 @@ remain sozvon / Zov on every hostname.
 Use `/readyz` to check the API-to-SFU connection before routing traffic. Deploy
 API and SFU updates independently: replacing an SFU can interrupt ongoing calls.
 Keep immutable image digests, backups, rollout and rollback procedures in your
-private infrastructure repository. No automatic production deployment runs from
-this repository at this preparation stage.
+private infrastructure repository. The maintained instance is deployed from checked main-branch commits by
+GitHub Actions; see [deployment](deployment.md) for the setup contract.
 
 For Telegram invitations, see [bot setup](../apps/bot/README.md).
 For trust boundaries, see [architecture](architecture.md) and [security](../SECURITY.md).

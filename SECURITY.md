@@ -9,11 +9,9 @@ using synthetic participants. Remove room URLs, tokens, IP addresses, personal
 paths and conversation content from diagnostics. Do not attach `.env` files,
 recordings or complete production logs. Never test against someone else's calls.
 
-The project is preparing its first public release; no separate long-term support
-branches are maintained. Fixes target the current main branch.
+Security fixes target the current main branch; no separate long-term support
+branches are maintained.
 See [architecture](docs/architecture.md) for room access and media trust boundaries.
 
 Contributor secret-scanning instructions are in the
-[development guide](docs/development.md#secrets-and-source-review). Pre-publication
-audit and credential-rotation tasks are tracked in
-[migration status](docs/MIGRATION.md).
+[development guide](docs/development.md#secrets-and-source-review).

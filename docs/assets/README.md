@@ -32,7 +32,7 @@ node scripts/capture-readme.mjs
 
 The script enforces English visible text before saving each image and uses
 1440×900 desktop and 390×844 mobile viewports. It waits for
-local fonts and images and captures home, lobby, meeting and settings views.
+local fonts and images and captures home, lobby, meeting, settings and mobile Driver mode views.
 `SCREENSHOT_URL` may select a different **loopback** server; remote hosts are
 rejected to avoid accidental capture of a real meeting.
 

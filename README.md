@@ -3,9 +3,9 @@
 </h1>
 
 <p align="center">
-  <strong>A link. A conversation. Your own server.</strong><br />
-  Video meetings in your browser, without accounts or sign-up.<br />
-  Share a room, turn on your microphone and bring everyone in.
+  <strong>Everything you need for a call.</strong><br />
+  Fast, minimal video meetings: audio, video, screen sharing and chat.<br />
+  Proven in production across tens of thousands of calls.
 </p>
 
 <p align="center">
@@ -27,7 +27,8 @@
   <a href="docs/assets/readme/meeting.webp"><img src="docs/assets/readme/meeting.webp" alt="sozvon desktop meeting with four synthetic participants, chat and call controls" width="1100" /></a>
 </p>
 
-sozvon brings audio, video, screen sharing and chat into one room. Send a link;
+sozvon keeps calls simple: audio, video, screen sharing and chat, with just the
+controls you need. It has handled tens of thousands of calls in production. Send a link;
 people choose a name and join from their browser. Check your microphone and camera
 before entering, expand a participant when you need a closer look, or keep the
 call beside its chat. The same interface adapts to a phone.
@@ -70,17 +71,19 @@ from a command or an inline query. All three applications live in this repositor
 
 ### The same room on your phone
 
-The lobby and call controls adapt to narrow screens. Safe driving mode offers a
-large microphone control. You can return to a recent meeting from the home screen.
+The lobby and call controls adapt to narrow screens. **Driver mode** puts a
+large microphone toggle and speaker status within easy reach. You can return to a recent meeting from the home screen.
 
 <table>
   <tr>
-    <th width="50%">Check before joining</th>
-    <th width="50%">Stay in the conversation</th>
+    <th width="33%">Check before joining</th>
+    <th width="34%">Stay in the conversation</th>
+    <th width="33%">Driver mode</th>
   </tr>
   <tr>
     <td align="center"><a href="docs/assets/readme/mobile-lobby.webp"><img src="docs/assets/readme/mobile-lobby.webp" alt="sozvon pre-join lobby on a phone-sized viewport" width="280" /></a></td>
     <td align="center"><a href="docs/assets/readme/mobile.webp"><img src="docs/assets/readme/mobile.webp" alt="sozvon meeting and controls on a phone-sized viewport" width="280" /></a></td>
+    <td align="center"><a href="docs/assets/readme/driver-mode.webp"><img src="docs/assets/readme/driver-mode.webp" alt="Driver mode with a large microphone control and speaker status" width="280" /></a></td>
   </tr>
 </table>
 
@@ -137,18 +140,12 @@ uses public STUN defaults unless configured otherwise.
 | Guide | What it covers |
 | --- | --- |
 | [Self-hosting](docs/self-hosting.md) | Local setup, configuration, build contexts and public deployment requirements. |
+| [Deployment](docs/deployment.md) | Checks, immutable images and automatic main-branch deployment. |
 | [Development](docs/development.md) | Repository layout, commands, browser tests and real media verification. |
 | [Architecture](docs/architecture.md) | Client, API, SFU, P2P signaling and the Telegram integration. |
 | [Contributing](CONTRIBUTING.md) | Bug reports, changes and the checks relevant to a pull request. |
 | [Brand and screenshots](docs/assets/README.md) | Vector source, image provenance and capture instructions. |
 | [Third-party notices](THIRD-PARTY-NOTICES.md) | Dependency licenses, font notices and the remaining asset review. |
-
-## Project status
-
-The repository is private during preparation for public release. Product
-development belongs here; existing production deployments still use the legacy
-release path. The remaining privacy and rights review and operational handover
-are tracked in [migration status](docs/MIGRATION.md).
 
 ## Contributing
 
