@@ -8,6 +8,9 @@ RUN go mod download && go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./cmd/ser
 RUN CGO_ENABLED=0 go build -mod=readonly -trimpath -ldflags="-s -w" -o /livekit-server ./cmd/server
 RUN mkdir /licenses && find /go/pkg/mod -type f \( -iname 'LICENSE*' -o -iname 'NOTICE*' -o -iname 'COPYING*' \) -exec cp --parents '{}' /licenses/ \;
 FROM caddy:2.11.7-alpine@sha256:eb4d35b7452d1ab6171fbdbe8d9275b2301dad6dad92115d91e19fb9b24d510f AS caddy
+# Caddy listens on unprivileged internal ports. Strip upstream file capabilities
+# so it also runs with no-new-privileges and all container capabilities dropped.
+RUN setcap -r /usr/bin/caddy
 FROM golang:1.27.3-bookworm@sha256:972b4110ba0f47539a975c31e52c64765e1ff19f2d74469ae4a595c6676e80a5 AS caddy-notices
 COPY --from=caddy /usr/bin/caddy /caddy
 RUN go version -m /caddy | awk '($1 == "dep" || $1 == "=>") && $3 ~ /^v/ {print $2 "@" $3}' | xargs -r go mod download
