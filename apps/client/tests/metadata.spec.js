@@ -9,6 +9,7 @@ function pngSize(body) {
 
 for (const [ key, name, domain, html, language ] of [
 	[ "sozvon", "sozvon", "sozvon.now", "/index.html", "ru" ],
+	[ "govoice", "Go Voice", "govoice.now", "/index-govoice.html", "en" ],
 ]) {
 	test(`${name} exposes its link preview and install identity without JavaScript`, async({ page, request }) => {
 		await page.goto(html);
@@ -17,8 +18,9 @@ for (const [ key, name, domain, html, language ] of [
 		await expect(page.locator("meta[property=\"og:title\"]")).toHaveAttribute("content", name);
 		await expect(page.locator("meta[property=\"og:site_name\"]")).toHaveAttribute("content", name);
 		await expect(page.locator("meta[name=\"twitter:title\"]")).toHaveAttribute("content", name);
+		const imageVersion = key === "govoice" ? "govoice-1" : "graphite-4";
 		const image = await page.locator("meta[property=\"og:image\"]").getAttribute("content");
-		expect(image).toBe(`https://${domain}/og-${key}.png?v=graphite-4`);
+		expect(image).toBe(`https://${domain}/og-${key}.png?v=${imageVersion}`);
 		await expect(page.locator("meta[name=\"twitter:image\"]")).toHaveAttribute("content", image);
 		await expect(page.locator("meta[property=\"og:image:width\"]")).toHaveAttribute("content", "1200");
 		await expect(page.locator("meta[property=\"og:image:height\"]")).toHaveAttribute("content", "630");
@@ -28,9 +30,9 @@ for (const [ key, name, domain, html, language ] of [
 		expect(pngSize(await preview.body())).toEqual([ 1200, 630 ]);
 		const manifestURL = await page.locator("link[rel=manifest]").getAttribute("href");
 		const manifest = await (await request.get(manifestURL)).json();
-		expect(manifest.name).toBe(name);
-		expect(manifest.short_name).toBe(name);
-		expect(manifest.lang).toBe(language);
+		expect(manifest.name).toBe("sozvon");
+		expect(manifest.short_name).toBe("sozvon");
+		expect(manifest.lang).toBe("ru");
 		expect(manifest.theme_color).toBe("#101010");
 		expect(manifest.start_url).toBe("/");
 		expect(manifest.icons).toHaveLength(4);

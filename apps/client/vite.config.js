@@ -1,3 +1,5 @@
+import { readFile, writeFile } from "node:fs/promises";
+
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -19,6 +21,19 @@ export default defineConfig({
 	plugins: [
 		react(),
 		tailwindcss(),
+		{
+			name: "govoice-preview-html",
+			async writeBundle({ dir }) {
+				const html = await readFile(path.join(dir, "index.html"), "utf8");
+				const preview = html.replaceAll("sozvon", "Go Voice")
+					.replaceAll("https://Go Voice.now", "https://govoice.now")
+					.replaceAll("og-Go Voice", "og-govoice")
+					.replaceAll("Видеозвонки без регистрации.", "Video calls. No sign-up.")
+					.replace("lang=\"ru\"", "lang=\"en\"").replace("ru_RU", "en_US")
+					.replaceAll("og-govoice.png?v=graphite-4", "og-govoice.png?v=govoice-1");
+				await writeFile(path.join(dir, "index-govoice.html"), preview);
+			},
+		},
 	],
 	resolve: {
 		alias: {
