@@ -4,6 +4,7 @@ import { writeFileSync } from "node:fs";
 
 import { config } from "./config.js";
 import { getLocale, locales } from "./i18n.js";
+import { updateProfileField } from "./profile.js";
 
 const bot = new Bot(config.botToken);
 
@@ -99,15 +100,13 @@ bot.catch((err) => {
 
 async function setupProfile(api) {
 	const { username } = await api.getMe();
-	const call = async (fn) => {
-		try { await fn(); } catch (e) {
-			console.warn(`[setup] skipped (${e.error_code ?? e.message})`);
-		}
-	};
-
-	await call(() => api.setMyName("Созвон!", { language_code: "ru" }));
-	await call(() => api.setMyName("Go Voice!", { language_code: "en" }));
-	await call(() => api.setMyName("Go Voice!"));
+	const call = updateProfileField;
+	for (const [language_code, name] of [["ru", "Созвон!"], ["en", "Go Voice!"], [undefined, "Go Voice!"]]) {
+		await call(async () => {
+			const options = language_code ? { language_code } : {};
+			if ((await api.getMyName(options)).name !== name) await api.setMyName(name, options);
+		});
+	}
 
 	await call(() => api.setMyShortDescription("Голосовые звонки прямо из любого чата", { language_code: "ru" }));
 	await call(() => api.setMyShortDescription("Voice calls right from any chat", { language_code: "en" }));
@@ -135,7 +134,7 @@ async function setupProfile(api) {
 	await call(() => api.setMyCommands(enCommands, { language_code: "en" }));
 	await call(() => api.setMyCommands(enCommands));
 
-	console.log(`Bot profile updated (@${username})`);
+	console.log(`Bot profile setup complete (@${username}); rate-limited updates retry in the background`);
 }
 
 async function start() {
