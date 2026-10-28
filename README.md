@@ -96,33 +96,23 @@ Russian and English bot messages point to the same sozvon instance. Set
 
 ## Quick start
 
-For a local call on **Linux**, use **Node 24**, npm and Docker with Compose.
-This setup uses host networking and binds the SFU to loopback; open the client
-on the same machine.
+Run the ready-made image on a Linux x86-64 machine with Docker:
 
 ```bash
-git clone https://github.com/ufna/sozvon.git
-cd sozvon
-npm run install:apps
-npm run setup:local
-docker compose up -d --build sfu
-npm run dev:server
+docker run -d --name sozvon --init --restart unless-stopped \
+  -p 127.0.0.1:8080:8080 \
+  -p 7881:7881/tcp -p 7882:7882/udp \
+  -v sozvon-data:/data \
+  ghcr.io/ufna/sozvon:latest
 ```
 
-In another terminal:
+Open **http://localhost:8080**. The image includes the client, API, SFU and HTTPS
+proxy. It generates its own keys and preserves them in the data volume.
+For your own domain, set `PUBLIC_URL` and expose the web and RTC ports.
 
-```bash
-cd sozvon
-npm run dev:client
-```
-
-Open **http://localhost:4000**, create a room and open its link in a second browser
-profile. Setup generates independent random secrets in ignored local files and
-refuses to overwrite existing configuration. The first SFU build takes longer
-because it compiles the pinned upstream source. Stop it with `docker compose down`.
-
-For other devices and public hosting, configure reachable RTC addresses,
-HTTPS/WSS and your own origins. See the [self-hosting guide](docs/self-hosting.md).
+[Docker and Compose guide](docs/docker.md) ·
+[Develop from source](docs/development.md) ·
+[Deploy components separately](docs/self-hosting.md)
 
 ## Your server, your deployment
 
@@ -139,6 +129,7 @@ uses public STUN defaults unless configured otherwise.
 
 | Guide | What it covers |
 | --- | --- |
+| [Docker](docs/docker.md) | One ready-made image, local calls, domain/HTTPS setup and updates. |
 | [Self-hosting](docs/self-hosting.md) | Local setup, configuration, build contexts and public deployment requirements. |
 | [Deployment](docs/deployment.md) | Checks, immutable images and automatic main-branch deployment. |
 | [Development](docs/development.md) | Repository layout, commands, browser tests and real media verification. |

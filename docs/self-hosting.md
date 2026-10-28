@@ -1,5 +1,8 @@
 # Self-hosting
 
+For the ready-made single-image setup, start with [Docker](docker.md). This page
+covers development and deploying the components independently.
+
 sozvon has a browser client, Node.js API/signaling service, separate LiveKit SFU
 and optional Telegram bot. The checked-in Compose file starts the local SFU;
 it is not a complete production deployment.

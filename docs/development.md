@@ -60,6 +60,25 @@ This uses the client's default local API addresses. Custom `SERVER_URL` and
 `SERVER_WS_URL` values must be supplied when building. Browser tests use port
 4000 by default; stop an unrelated server on that port to avoid testing old code.
 
+## Packaged distribution
+
+The root Dockerfile builds the single-image self-hosted distribution. It has no
+production configuration. Its entrypoint generates per-installation secrets in
+`/data` and starts API, SFU and HTTPS proxy together. Node tests validate its
+configuration; the media test exercises the actual container through published
+HTTP/RTC ports and checks key persistence after a restart.
+
+```bash
+node --test docker/config.test.mjs
+docker build -t sozvon-selfhost:test .
+bash scripts/test-selfhost.sh
+```
+
+CI exports the exact tested image and publishes it as `ghcr.io/ufna/sozvon` with
+revision and `latest` tags. It does not rebuild the image in the publication job.
+Only the self-hosted distribution bundles the SFU lifecycle with the application.
+See [Docker deployment](docker.md).
+
 ## Secrets and source review
 
 ```bash

@@ -17,6 +17,9 @@ components and is not a complete dependency inventory.
 | Font Awesome Free | CC BY 4.0 icons; SIL OFL 1.1 fonts; MIT code | Browser icons and bundled webfonts. |
 
 The SFU container builds upstream LiveKit, rather than vendoring its source here.
+The single-image distribution also includes Caddy (Apache-2.0); its
+[license](docs/licenses/caddy-LICENSE.txt), Go module notices and collected client
+dependency license texts ship in `/usr/share/doc/sozvon/licenses/`.
 Its upstream license and transitive dependency notices remain applicable to any
 binary distribution. The SFU Go module manifests identify the dependency inputs.
 

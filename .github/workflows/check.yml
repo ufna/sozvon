@@ -28,13 +28,28 @@ jobs:
       - run: npm run lint
       - run: npm run test:server
       - run: npm run test:bot
+      - run: node --test docker/config.test.mjs
       - run: npm run build
       - run: npx playwright install --with-deps chromium webkit
         working-directory: apps/client
       - run: npm run test:smoke
-      - run: npm run test:integration
       - name: Scan full history for secrets
         run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.30.1 git /repo --config /repo/.gitleaks.toml --redact
+
+      - name: Build portable self-hosted image
+        run: docker build --build-arg "VERSION=$GITHUB_SHA" --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" --label "org.opencontainers.image.revision=$GITHUB_SHA" -t sozvon-selfhost:test .
+      - name: Verify packaged SFU/P2P calls and persistent credentials
+        run: bash scripts/test-selfhost.sh
+      - name: Export tested image
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: docker save sozvon-selfhost:test | gzip > /tmp/sozvon-selfhost.tar.gz
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        with:
+          name: sozvon-selfhost-image
+          path: /tmp/sozvon-selfhost.tar.gz
+          retention-days: 1
+          compression-level: 0
 
   build:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.PRODUCTION_DEPLOY_ENABLED == 'true'
@@ -117,3 +132,36 @@ jobs:
           voice "client $CLIENT_IMAGE $GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           bot "bot $BOT_IMAGE"
           if [[ -n "$SFU_IMAGE" ]]; then voice "sfu $SFU_IMAGE"; fi
+
+  selfhost:
+    if: github.repository == 'ufna/sozvon' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: sozvon-selfhost-image
+          path: /tmp/sozvon-selfhost
+      - name: Publish the tested image
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker load -i /tmp/sozvon-selfhost/sozvon-selfhost.tar.gz
+          image="ghcr.io/${GITHUB_REPOSITORY}"
+          push_image() {
+            for attempt in 1 2 3; do
+              if docker push "$1"; then return 0; fi
+              sleep 5
+            done
+            return 1
+          }
+          for tag in "$GITHUB_SHA" latest; do
+            docker tag sozvon-selfhost:test "$image:$tag"
+            push_image "$image:$tag"
+          done

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Ready-made single-image Docker distribution with generated persistent keys,
+  bundled SFU, automatic HTTPS and a Compose recipe.
+
 - Minimal browser calls with audio, video, screen sharing and chat.
 - Desktop and mobile layouts, including Driver mode with a large mic toggle.
 - LiveKit SFU and P2P connection modes.

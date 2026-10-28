@@ -1,0 +1,31 @@
+name: sozvon-selfhost
+services:
+  sozvon:
+    image: ${SOZVON_IMAGE:-ghcr.io/ufna/sozvon:latest}
+    restart: unless-stopped
+    init: true
+    environment:
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      PUBLIC_IP: ${PUBLIC_IP:-}
+      RTC_TCP_PORT: ${RTC_TCP_PORT:-7881}
+      RTC_UDP_PORT: ${RTC_UDP_PORT:-7882}
+    ports:
+      - "${HTTP_BIND:-127.0.0.1:8080}:8080"
+      - "${HTTPS_BIND:-127.0.0.1:8443}:8443"
+      - "${RTC_TCP_PORT:-7881}:${RTC_TCP_PORT:-7881}/tcp"
+      - "${RTC_UDP_PORT:-7882}:${RTC_UDP_PORT:-7882}/udp"
+    volumes:
+      - sozvon-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,noexec,nosuid
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    stop_grace_period: 35s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+volumes:
+  sozvon-data:
