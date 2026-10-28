@@ -15,6 +15,7 @@ const views = [ [ "home", "Главная" ], [ "lobby", "Вход" ], [ "call",
 const validViews = views.map(([ id ]) => id);
 
 function prepareRoom(entered) {
+	const english = new URLSearchParams(location.search).get("lang") === "en";
 	const requestedPeople = Number(new URLSearchParams(location.search).get("people"));
 	const people = Number.isInteger(requestedPeople) && requestedPeople >= 1 && requestedPeople <= 4 ? requestedPeople : 4;
 	const room = new RoomData();
@@ -23,15 +24,15 @@ function prepareRoom(entered) {
 		myIdentity: "preview-anna", hasCamera: true, hasScreencast: true, canSwapCamera: true,
 		microphone: entered, camera: false,
 		users: [
-			{ identity: "preview-anna", name: root.settings.displayName || "Анна Морозова", main: true, connected: true, microphone: entered },
-			{ identity: "preview-misha", name: "Миша Волков", connected: true, microphone: true, speaking: true },
-			{ identity: "preview-katya", name: "Катя Белова", connected: true, microphone: false },
-			{ identity: "preview-dan", name: "Даня Лебедев", connected: true, microphone: true },
+			{ identity: "preview-anna", name: root.settings.displayName || (english ? "Anna Morozova" : "Анна Морозова"), main: true, connected: true, microphone: entered },
+			{ identity: "preview-misha", name: (english ? "Misha Volkov" : "Миша Волков"), connected: true, microphone: true, speaking: true },
+			{ identity: "preview-katya", name: (english ? "Katya Belova" : "Катя Белова"), connected: true, microphone: false },
+			{ identity: "preview-dan", name: (english ? "Dan Lebedev" : "Даня Лебедев"), connected: true, microphone: true },
 		].slice(0, people),
 		messages: [
-			{ identity: "preview-misha", text: "Всем привет! Рад вас видеть 👋", timestamp: new Date(2026, 9, 26, 14, 30).getTime() },
-			{ identity: "preview-katya", text: "Привет! Сейчас включу микрофон.", timestamp: new Date(2026, 9, 26, 14, 30).getTime() },
-			{ identity: "preview-anna", text: "Давайте обсудим новые идеи. У меня как раз есть пара!", timestamp: new Date(2026, 9, 26, 14, 31).getTime() },
+			{ identity: "preview-misha", text: (english ? "Hi everyone! Great to see you 👋" : "Всем привет! Рад вас видеть 👋"), timestamp: new Date(2026, 9, 26, 14, 30).getTime() },
+			{ identity: "preview-katya", text: (english ? "Hi! I’ll turn on my microphone." : "Привет! Сейчас включу микрофон."), timestamp: new Date(2026, 9, 26, 14, 30).getTime() },
+			{ identity: "preview-anna", text: (english ? "Let’s talk through our ideas. I have a couple to share!" : "Давайте обсудим новые идеи. У меня как раз есть пара!"), timestamp: new Date(2026, 9, 26, 14, 31).getTime() },
 		],
 	});
 	runInAction(() => {
@@ -85,6 +86,7 @@ function MobileReview({ palette }) {
 }
 
 export default function DesignReview() {
+	const english = new URLSearchParams(location.search).get("lang") === "en";
 	const embedded = new URLSearchParams(location.search).has("embed");
 	const [ palette, setPalette ] = useState(getPalette);
 	useEffect(() => {
@@ -99,7 +101,7 @@ export default function DesignReview() {
 		const originalTitle = document.title;
 		document.title = "sozvon";
 		runInAction(() => {
-			root.settings.language = "ru";
+			root.settings.language = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "ru";
 		});
 		return () => {
 			runInAction(() => {
@@ -138,6 +140,6 @@ export default function DesignReview() {
 			{view === "brand" && <LogoGallery palette={palette} />}
 			{view === "mobile" && <MobileReview palette={palette} />}
 		</div>
-		{(view === "call" || view === "lobby") && <span className={styles.demo_note} title="Камера и звук имитируются">Демо</span>}
+		{(view === "call" || view === "lobby") && <span className={styles.demo_note} title={english ? "Camera and audio are simulated" : "Камера и звук имитируются"}>{english ? "Demo" : "Демо"}</span>}
 	</div>;
 }

@@ -13,14 +13,14 @@ if (!["localhost", "127.0.0.1"].includes(new URL(origin).hostname)) {
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch();
 try {
- const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, reducedMotion: "reduce" });
+ const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, reducedMotion: "reduce", locale: "en-US" });
  await context.route("**/*", (route) => {
   const url = new URL(route.request().url());
   if (url.hostname === "api.dicebear.com") {
    const seed = url.searchParams.get("seed") || "preview-anna";
    const variants = {
-    "preview-anna": ["#ff9a00", "АМ"], "preview-misha": ["#77b9a2", "МВ"],
-    "preview-katya": ["#b29cdb", "КБ"], "preview-dan": ["#6ca6cf", "ДБ"],
+    "preview-anna": ["#ff9a00", "AM"], "preview-misha": ["#77b9a2", "MV"],
+    "preview-katya": ["#b29cdb", "KB"], "preview-dan": ["#6ca6cf", "DL"],
    };
    const [color, initials] = variants[seed] || variants["preview-anna"];
    return route.fulfill({ contentType: "image/svg+xml", body: `<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="78" fill="${color}" fill-opacity=".12"/><circle cx="80" cy="80" r="62" fill="${color}" fill-opacity=".08"/><text x="80" y="96" text-anchor="middle" font-family="sans-serif" font-weight="600" font-size="44" fill="${color}">${initials}</text></svg>` });
@@ -33,7 +33,7 @@ try {
  page.on("pageerror", (error) => errors.push(error.message));
  async function open(view, size) {
   await page.setViewportSize(size || { width: 1440, height: 900 });
-  await page.goto(`${origin}/design?embed=1&theme=studio&view=${view}`);
+  await page.goto(`${origin}/design?embed=1&theme=studio&lang=en&view=${view}`);
   await page.locator(view === "home" ? ".brand" : "button[data-shortcut=Space]").first().waitFor();
   await page.evaluate(async() => {
    await document.fonts.ready;
@@ -41,6 +41,8 @@ try {
   });
  }
  async function save(name) {
+  const visibleText = await page.locator("body").innerText();
+  if (/[А-Яа-яЁё]/u.test(visibleText)) throw new Error(`Non-English text in ${name}`);
   const png = await page.screenshot({ animations: "disabled" });
   const webp = execFileSync("python3", ["-c", "import sys; from PIL import Image; Image.open(sys.stdin.buffer).convert('RGB').save(sys.stdout.buffer, 'WEBP', quality=88, method=6)"], { input: png });
   writeFileSync(output + name + ".webp", webp);
@@ -53,7 +55,7 @@ try {
  await open("lobby");
  await save("lobby");
  await open("call");
- await page.getByRole("button", { name: "Настройки", exact: true }).click();
+ await page.getByRole("button", { name: "Settings", exact: true }).click();
  await page.getByRole("dialog").waitFor();
  await save("settings");
  await open("call", { width: 390, height: 844 });

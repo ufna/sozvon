@@ -7,7 +7,8 @@ when changing that source; do not introduce a second repository identity.
 
 README images are WebP files in `readme/`, stored directly in Git. They show the
 running browser application's local `/design` route in the studio theme,
-with synthetic participants and chat. Camera and media access are not used.
+in English (`lang=en`), with synthetic participants and chat. Camera and media
+access are not used.
 Avatar images are locally generated SVG monograms supplied only by the capture
 script. All other external requests are blocked. No live calls are captured.
 
@@ -29,7 +30,8 @@ From the repository root in another terminal:
 node scripts/capture-readme.mjs
 ```
 
-The script uses 1440×900 desktop and 390×844 mobile viewports. It waits for
+The script enforces English visible text before saving each image and uses
+1440×900 desktop and 390×844 mobile viewports. It waits for
 local fonts and images and captures home, lobby, meeting and settings views.
 `SCREENSHOT_URL` may select a different **loopback** server; remote hosts are
 rejected to avoid accidental capture of a real meeting.
