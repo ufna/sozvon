@@ -131,7 +131,7 @@ export default function DesignReview() {
 		history.pushState(null, "", `/design?${params}`);
 	}
 	return <div className={styles.review}>
-		{!embedded && <header className={styles.review_bar}><nav aria-label="Экраны редизайна">{views.map(([ id, title ]) => <button key={id} aria-current={view === id ? "page" : undefined} onClick={() => navigate(id)}>{title}{id === "brand" && <span className={styles.counter}>3</span>}</button>)}</nav></header>}
+		{!embedded && <header className={styles.review_bar}><nav aria-label="Экраны редизайна">{views.map(([ id, title ]) => <button key={id} aria-current={view === id ? "page" : undefined} onClick={() => navigate(id)}>{title}</button>)}</nav></header>}
 		<div className={`${styles.stage} ${embedded ? styles.stage_embedded : ""}`}>
 			{view === "home" && <MenuPage onCreatePreview={() => navigate("lobby")} onReturnPreview={new URLSearchParams(location.search).has("return") ? () => navigate("lobby") : undefined} />}
 			{(view === "call" || view === "lobby") && <Conference key={view} preview />}

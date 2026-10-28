@@ -5,6 +5,8 @@
 - Client snapshot: `2bf310c0067e9cf104ca338639cc054548505171`; server snapshot: `8bd0702389ac1de5b42cff150f2042601b51a7de`.
 - No legacy Git ancestry, deployment workflows, production deploy directories,
   LFS pointers or credentials were intentionally carried over.
+- A reviewed original server UUID-validation commit by @nprudnikov is preserved
+  through a minimal historical branch merged without changing current files.
 - Two final client layout fixes were replayed with their original author and
   author date. Their hashes changed because paths and ancestry changed.
 - Earlier contributions are credited in CONTRIBUTORS.md; historical per-line
@@ -16,8 +18,10 @@
 
 - [ ] Revoke the legacy Tinify credential at the provider.
 - [ ] Complete manual review for personal data, assets and third-party rights.
-- [ ] Select a license with the contributing rights holders.
-- [ ] Enable and document private vulnerability reporting.
+- [x] Select MIT for project code (repository owner decision).
+- [ ] Complete the remaining contributing-rights review.
+- [x] Document a private security contact in SECURITY.md.
+- [ ] Enable GitHub private vulnerability reporting when publishing.
 - [ ] Repeat full-history secret scan and clean-checkout local-call verification.
 
 ## Production handover
@@ -54,7 +58,6 @@ Node 24: linters, five server security tests and two bot locale/configuration
 tests passed. All 32 Chromium UI checks
 passed. Both SFU and P2P two-participant media scenarios passed against the
 imported API and local patched SFU. The isolated SFU fixture also passed.
-Local WebKit execution needs missing ICU/Flite libraries; CI runs both browsers
-on Ubuntu. Full new-history Gitleaks scan passed with only the exact loopback
-test credential allowlisted. Manual privacy/rights review and license selection
-remain required before public release.
+Local WebKit execution needs missing ICU/Flite libraries; both Chromium and
+WebKit passed on GitHub CI (runs 40656498851 and 40656789940). Full new-history Gitleaks scan passed with only the exact loopback
+test credential allowlisted. Manual privacy/rights review remains required before public release.

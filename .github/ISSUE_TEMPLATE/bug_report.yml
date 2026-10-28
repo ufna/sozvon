@@ -1,0 +1,42 @@
+name: Bug report
+description: Report a reproducible problem with sozvon.
+body:
+  - type: markdown
+    attributes:
+      value: Use synthetic participants. Remove room URLs, tokens and personal data. Report security issues through SECURITY.md.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, OS and sozvon revision
+      placeholder: Chromium on Linux, commit or deployment version
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Where did it happen?
+      options:
+        - SFU meeting
+        - P2P meeting
+        - Lobby or home screen
+        - Telegram bot
+        - Self-hosting or build
+        - Other
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Diagnostics
+      description: Screenshots or short logs with synthetic data only. For media problems, identify the affected tracks and what another participant observed.
