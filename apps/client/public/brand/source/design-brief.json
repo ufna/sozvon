@@ -1,0 +1,47 @@
+{
+  "name": "Sozvon",
+  "offering": "Browser-based video calls",
+  "audience": "Small teams, friends and communities",
+  "adjectives": [
+    "calm",
+    "clear",
+    "approachable",
+    "modern"
+  ],
+  "constraints": [
+    "dark graphite UI",
+    "warm orange accent",
+    "16px recognition",
+    "one-colour clarity"
+  ],
+  "category_cliches_to_avoid": [
+    "literal video camera",
+    "telephone handset",
+    "generic chat bubble",
+    "blue gradients"
+  ],
+  "word_map": [
+    "voice → reply → turn",
+    "room → open frame → shared space",
+    "call → response → rhythm"
+  ],
+  "longlist": [
+    "S with two reply turns — letterform; clarity 5, distinction 4, simplicity 5, small size 5",
+    "Two open frames become one room — abstract; clarity 5, distinction 4, simplicity 5, small size 5",
+    "Point and voice exchange places — rhythmic abstract; clarity 4, distinction 4, simplicity 5, small size 5",
+    "Custom wordmark with connected o forms — wordmark; clarity 4, distinction 3, small size 2",
+    "Diagonal lens cut into Z — letterform; clarity 3, distinction 3, small size 4",
+    "Three seats around negative central table — pictorial; clarity 4, distinction 2, small size 3",
+    "Two paths overlap into an infinity — abstract; clarity 4, distinction 1, small size 4",
+    "Single beacon with matching echo — pictorial; clarity 4, distinction 2, small size 3",
+    "Meeting point in O — letterform; clarity 3, distinction 2, small size 4",
+    "Video aperture formed by S — negative space; clarity 2, distinction 4, small size 2"
+  ],
+  "construction": {
+    "replika": "Continuous filled S ribbon; 12-unit stems; paired circular bends; 45° reply terminals.",
+    "vstrecha": "Two 12-unit L frames, rotated 180°; 14-unit outer corner radii, 2-unit inner corners; 4-unit diagonal breathing gaps, widened after the first 16px inspection.",
+    "sozvuchie": "Two opposite pairs of 14-unit circles and capsules; 180° rotational symmetry; 8-unit silence gap."
+  },
+  "type": "Original outlined lowercase geometry; no third-party font files or live text.",
+  "scope": "Three concepts for user selection. Full identity kit awaits chosen direction."
+}

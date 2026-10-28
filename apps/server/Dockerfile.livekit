@@ -1,0 +1,15 @@
+FROM golang:1.27.3-bookworm@sha256:972b4110ba0f47539a975c31e52c64765e1ff19f2d74469ae4a595c6676e80a5 AS build
+WORKDIR /src
+ARG LIVEKIT_REVISION=e5655ac
+ADD https://api.github.com/repos/livekit/livekit/tarball/v1.13.10 /tmp/livekit.tar.gz
+RUN echo "2ba8e0fb0565f0b1d3b164279283832a8578784c71593fb16a8a210914e4fe9e  /tmp/livekit.tar.gz" | sha256sum -c - && tar -xzf /tmp/livekit.tar.gz --strip-components=1
+COPY sfu/go.mod sfu/go.sum ./
+RUN go mod download && go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./cmd/server
+RUN CGO_ENABLED=0 go build -mod=readonly -trimpath -ldflags="-s -w" -o /livekit-server ./cmd/server
+FROM debian:bookworm-slim@sha256:67b30a61dc87758f0caf819646104f29ecbda97d920aaf5edc834128ac8493d3
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*
+COPY --from=build /livekit-server /usr/local/bin/livekit-server
+USER 65532:65532
+HEALTHCHECK --interval=15s --timeout=4s --start-period=15s --retries=3 CMD curl -fsS http://127.0.0.1:7880/ || exit 1
+ENTRYPOINT ["/usr/local/bin/livekit-server"]
+CMD ["--config", "/etc/livekit/config.yaml"]

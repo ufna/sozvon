@@ -1,0 +1,51 @@
+{
+	"menu.create_meeting": "创建会议",
+	"menu.create_p2p_meeting": "创建P2P会议",
+	"menu.p2p_hint": "最大隐私",
+	"menu.footer_about": "无分析、无数据收集，完全私密和匿名。您也可以使用P2P通话进行直接连接，但稳定性可能有所不同。",
+	"menu.footer_instance": "需要无限制的私有实例？",
+	"menu.return_to_meeting": "返回会议",
+
+	"conference.join": "加入",
+	"conference.loading": "加载中...",
+	"conference.chat": "聊天",
+	"conference.type_message": "输入消息...",
+	"conference.edit_name": "点击编辑名称",
+
+	"toast.invite_copied": "邀请链接已复制",
+	"toast.network_issues": "检测到网络问题",
+	"toast.connection_failed": "连接失败",
+
+	"settings.title": "设置",
+	"settings.microphone": "麦克风",
+	"settings.speaker": "扬声器",
+	"settings.camera": "摄像头",
+	"settings.screen_share": "屏幕共享",
+	"settings.incoming_video": "接收视频",
+
+	"settings.device": "设备",
+	"settings.quality": "质量",
+	"settings.blur": "模糊",
+	"settings.mirror": "镜像",
+	"settings.receive": "接收",
+
+	"settings.default": "默认",
+	"settings.low": "低",
+	"settings.med": "中",
+	"settings.high": "高",
+	"settings.on": "开",
+	"settings.off": "关",
+
+	"settings.language": "语言",
+
+	"safe_driving.title": "安全驾驶",
+	"safe_driving.tap_to_mute": "点击静音",
+	"safe_driving.tap_to_unmute": "点击取消静音",
+	"safe_driving.speaker_on": "扬声器已开启",
+	"safe_driving.tap_to_exit": "点击退出安全驾驶模式",
+
+	"tooltip.invite": "邀请",
+	"tooltip.swap_camera": "切换摄像头",
+	"tooltip.volume": "音量",
+	"tooltip.leave": "离开"
+}

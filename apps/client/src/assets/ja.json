@@ -1,0 +1,51 @@
+{
+	"menu.create_meeting": "会議を作成",
+	"menu.create_p2p_meeting": "P2P会議を作成",
+	"menu.p2p_hint": "最大限のプライバシー",
+	"menu.footer_about": "分析なし、データ収集なし、完全にプライベートで匿名です。P2P通話で直接接続することもできますが、安定性は異なる場合があります。",
+	"menu.footer_instance": "制限のないプライベートインスタンスが必要ですか？",
+	"menu.return_to_meeting": "会議に戻る",
+
+	"conference.join": "参加",
+	"conference.loading": "読み込み中...",
+	"conference.chat": "チャット",
+	"conference.type_message": "メッセージを入力...",
+	"conference.edit_name": "クリックして名前を編集",
+
+	"toast.invite_copied": "招待リンクをコピーしました",
+	"toast.network_issues": "ネットワークの問題を検出",
+	"toast.connection_failed": "接続に失敗しました",
+
+	"settings.title": "設定",
+	"settings.microphone": "マイク",
+	"settings.speaker": "スピーカー",
+	"settings.camera": "カメラ",
+	"settings.screen_share": "画面共有",
+	"settings.incoming_video": "受信映像",
+
+	"settings.device": "デバイス",
+	"settings.quality": "品質",
+	"settings.blur": "ぼかし",
+	"settings.mirror": "反転",
+	"settings.receive": "受信",
+
+	"settings.default": "既定",
+	"settings.low": "低",
+	"settings.med": "中",
+	"settings.high": "高",
+	"settings.on": "オン",
+	"settings.off": "オフ",
+
+	"settings.language": "言語",
+
+	"safe_driving.title": "安全運転",
+	"safe_driving.tap_to_mute": "タップしてミュート",
+	"safe_driving.tap_to_unmute": "タップしてミュート解除",
+	"safe_driving.speaker_on": "スピーカーがオン",
+	"safe_driving.tap_to_exit": "タップして安全運転モードを終了",
+
+	"tooltip.invite": "招待",
+	"tooltip.swap_camera": "カメラ切替",
+	"tooltip.volume": "音量",
+	"tooltip.leave": "退出"
+}

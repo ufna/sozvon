@@ -1,0 +1,51 @@
+{
+	"menu.create_meeting": "Meeting erstellen",
+	"menu.create_p2p_meeting": "P2P-Meeting erstellen",
+	"menu.p2p_hint": "maximale Privatsphäre",
+	"menu.footer_about": "Keine Analysen, keine Datenerfassung, vollständig privat und anonym. Sie können auch P2P-Anrufe für eine direkte Verbindung nutzen, die Stabilität kann jedoch variieren.",
+	"menu.footer_instance": "Brauchen Sie eine private Instanz ohne Einschränkungen?",
+	"menu.return_to_meeting": "Zum Meeting zurückkehren",
+
+	"conference.join": "Beitreten",
+	"conference.loading": "LADEN...",
+	"conference.chat": "Chat",
+	"conference.type_message": "Nachricht eingeben...",
+	"conference.edit_name": "Klicken, um den Namen zu bearbeiten",
+
+	"toast.invite_copied": "Einladungslink kopiert",
+	"toast.network_issues": "Netzwerkprobleme erkannt",
+	"toast.connection_failed": "Verbindung fehlgeschlagen",
+
+	"settings.title": "Einstellungen",
+	"settings.microphone": "Mikrofon",
+	"settings.speaker": "Lautsprecher",
+	"settings.camera": "Kamera",
+	"settings.screen_share": "Bildschirmfreigabe",
+	"settings.incoming_video": "Eingehendes Video",
+
+	"settings.device": "Gerät",
+	"settings.quality": "Qualität",
+	"settings.blur": "Unschärfe",
+	"settings.mirror": "Spiegeln",
+	"settings.receive": "Empfangen",
+
+	"settings.default": "Standard",
+	"settings.low": "Niedrig",
+	"settings.med": "Mittel",
+	"settings.high": "Hoch",
+	"settings.on": "An",
+	"settings.off": "Aus",
+
+	"settings.language": "Sprache",
+
+	"safe_driving.title": "Sicheres Fahren",
+	"safe_driving.tap_to_mute": "Tippen zum Stummschalten",
+	"safe_driving.tap_to_unmute": "Tippen zum Aktivieren",
+	"safe_driving.speaker_on": "Lautsprecher ist an",
+	"safe_driving.tap_to_exit": "Tippen zum Beenden des Fahrmodus",
+
+	"tooltip.invite": "Einladen",
+	"tooltip.swap_camera": "Kamera wechseln",
+	"tooltip.volume": "Lautstärke",
+	"tooltip.leave": "Verlassen"
+}

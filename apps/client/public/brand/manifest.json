@@ -1,0 +1,38 @@
+{
+  "brand": "Sozvon",
+  "accent": "#F59A53",
+  "recommended": "replika",
+  "skill": "https://github.com/kaankiziltug/logo-design-skill",
+  "concepts": [
+    {
+      "id": "replika",
+      "name": "Реплика",
+      "type": "Буквенный знак",
+      "description": "Буква S с двумя встречными поворотами: разговор, который продолжается.",
+      "recommended": true,
+      "mark": "/brand/replika-mark.svg",
+      "mono": "/brand/replika-mono.svg",
+      "lockup": "/brand/replika-lockup.svg"
+    },
+    {
+      "id": "vstrecha",
+      "name": "Встреча",
+      "type": "Абстрактный знак",
+      "description": "Две открытые рамки собираются в одно пространство для встречи.",
+      "recommended": false,
+      "mark": "/brand/vstrecha-mark.svg",
+      "mono": "/brand/vstrecha-mono.svg",
+      "lockup": "/brand/vstrecha-lockup.svg"
+    },
+    {
+      "id": "sozvuchie",
+      "name": "Созвучие",
+      "type": "Ритмический знак",
+      "description": "Точка и голос меняются местами: один говорит, другой отвечает.",
+      "recommended": false,
+      "mark": "/brand/sozvuchie-mark.svg",
+      "mono": "/brand/sozvuchie-mono.svg",
+      "lockup": "/brand/sozvuchie-lockup.svg"
+    }
+  ]
+}

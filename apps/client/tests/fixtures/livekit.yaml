@@ -1,0 +1,16 @@
+port: 17880
+bind_addresses: [127.0.0.1]
+rtc:
+  node_ip: 127.0.0.1
+  tcp_port: 17881
+  udp_port: 17882
+  use_external_ip: false
+keys:
+  testkey: test-secret-for-isolated-integration-validation-20261023
+room:
+  empty_timeout: 30
+  departure_timeout: 10
+  max_participants: 50
+  enabled_codecs:
+    - mime: audio/opus
+    - mime: video/vp8

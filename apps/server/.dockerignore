@@ -1,0 +1,12 @@
+node_modules
+.git
+.gitignore
+eslint.config.mjs
+README.md
+.env
+
+.env.*
+!.env.example
+test/
+tests/
+.git

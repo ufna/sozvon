@@ -1,0 +1,51 @@
+{
+	"menu.create_meeting": "إنشاء اجتماع",
+	"menu.create_p2p_meeting": "إنشاء اجتماع P2P",
+	"menu.p2p_hint": "أقصى خصوصية",
+	"menu.footer_about": "بدون تحليلات، بدون جمع بيانات، خاص ومجهول بالكامل. يمكنك أيضًا استخدام مكالمات P2P للاتصال المباشر، رغم أن الاستقرار قد يتفاوت.",
+	"menu.footer_instance": "تحتاج إلى نسخة خاصة بدون قيود؟",
+	"menu.return_to_meeting": "العودة إلى الاجتماع",
+
+	"conference.join": "انضمام",
+	"conference.loading": "جارٍ التحميل...",
+	"conference.chat": "الدردشة",
+	"conference.type_message": "اكتب رسالة...",
+	"conference.edit_name": "انقر لتعديل الاسم",
+
+	"toast.invite_copied": "تم نسخ رابط الدعوة",
+	"toast.network_issues": "تم اكتشاف مشاكل في الشبكة",
+	"toast.connection_failed": "فشل الاتصال",
+
+	"settings.title": "الإعدادات",
+	"settings.microphone": "الميكروفون",
+	"settings.speaker": "مكبر الصوت",
+	"settings.camera": "الكاميرا",
+	"settings.screen_share": "مشاركة الشاشة",
+	"settings.incoming_video": "الفيديو الوارد",
+
+	"settings.device": "الجهاز",
+	"settings.quality": "الجودة",
+	"settings.blur": "ضبابية",
+	"settings.mirror": "انعكاس",
+	"settings.receive": "الاستقبال",
+
+	"settings.default": "افتراضي",
+	"settings.low": "منخفض",
+	"settings.med": "متوسط",
+	"settings.high": "عالي",
+	"settings.on": "تشغيل",
+	"settings.off": "إيقاف",
+
+	"settings.language": "اللغة",
+
+	"safe_driving.title": "القيادة الآمنة",
+	"safe_driving.tap_to_mute": "انقر لكتم الصوت",
+	"safe_driving.tap_to_unmute": "انقر لتفعيل الميكروفون",
+	"safe_driving.speaker_on": "مكبر الصوت مفعّل",
+	"safe_driving.tap_to_exit": "انقر للخروج من وضع القيادة",
+
+	"tooltip.invite": "دعوة",
+	"tooltip.swap_camera": "تبديل الكاميرا",
+	"tooltip.volume": "مستوى الصوت",
+	"tooltip.leave": "مغادرة"
+}

@@ -1,0 +1,48 @@
+{
+  "brands": [
+    "Sozvon",
+    "GoVoice"
+  ],
+  "recommended": "zov",
+  "accent": "#FF9A00",
+  "white": "#F5F7FA",
+  "black": "#0E0E14",
+  "concepts": [
+    {
+      "id": "zov",
+      "name": "Зов",
+      "recommended": true,
+      "mark": "/brand/v2/zov-mark.svg",
+      "mono": "/brand/v2/zov-mono.svg",
+      "white": "/brand/v2/zov-white.svg",
+      "black": "/brand/v2/zov-black.svg",
+      "lockup": "/brand/v2/zov-sozvon-lockup.svg",
+      "govoiceLockup": "/brand/v2/zov-govoice-lockup.svg",
+      "download": "/brand/v2/zov-mark.svg"
+    },
+    {
+      "id": "most",
+      "name": "Мост",
+      "recommended": false,
+      "mark": "/brand/v2/most-mark.svg",
+      "mono": "/brand/v2/most-mono.svg",
+      "white": "/brand/v2/most-white.svg",
+      "black": "/brand/v2/most-black.svg",
+      "lockup": "/brand/v2/most-sozvon-lockup.svg",
+      "govoiceLockup": "/brand/v2/most-govoice-lockup.svg",
+      "download": "/brand/v2/most-mark.svg"
+    },
+    {
+      "id": "dialog",
+      "name": "Диалог",
+      "recommended": false,
+      "mark": "/brand/v2/dialog-mark.svg",
+      "mono": "/brand/v2/dialog-mono.svg",
+      "white": "/brand/v2/dialog-white.svg",
+      "black": "/brand/v2/dialog-black.svg",
+      "lockup": "/brand/v2/dialog-sozvon-lockup.svg",
+      "govoiceLockup": "/brand/v2/dialog-govoice-lockup.svg",
+      "download": "/brand/v2/dialog-mark.svg"
+    }
+  ]
+}

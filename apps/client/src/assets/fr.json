@@ -1,0 +1,51 @@
+{
+	"menu.create_meeting": "Créer une réunion",
+	"menu.create_p2p_meeting": "Créer une réunion P2P",
+	"menu.p2p_hint": "confidentialité maximale",
+	"menu.footer_about": "Pas d'analyse, pas de collecte de données, entièrement privé et anonyme. Vous pouvez aussi utiliser les appels P2P pour une connexion directe, bien que la stabilité puisse varier.",
+	"menu.footer_instance": "Besoin d'une instance privée sans limitations ?",
+	"menu.return_to_meeting": "Retourner à la réunion",
+
+	"conference.join": "Rejoindre",
+	"conference.loading": "CHARGEMENT...",
+	"conference.chat": "Chat",
+	"conference.type_message": "Écrire un message...",
+	"conference.edit_name": "Cliquez pour modifier le nom",
+
+	"toast.invite_copied": "Lien d'invitation copié",
+	"toast.network_issues": "Problèmes de réseau détectés",
+	"toast.connection_failed": "Échec de la connexion",
+
+	"settings.title": "Paramètres",
+	"settings.microphone": "Microphone",
+	"settings.speaker": "Haut-parleur",
+	"settings.camera": "Caméra",
+	"settings.screen_share": "Partage d'écran",
+	"settings.incoming_video": "Vidéo entrante",
+
+	"settings.device": "Appareil",
+	"settings.quality": "Qualité",
+	"settings.blur": "Flou",
+	"settings.mirror": "Miroir",
+	"settings.receive": "Recevoir",
+
+	"settings.default": "Par défaut",
+	"settings.low": "Basse",
+	"settings.med": "Moy.",
+	"settings.high": "Haute",
+	"settings.on": "Oui",
+	"settings.off": "Non",
+
+	"settings.language": "Langue",
+
+	"safe_driving.title": "Conduite sécurisée",
+	"safe_driving.tap_to_mute": "Appuyez pour couper le micro",
+	"safe_driving.tap_to_unmute": "Appuyez pour activer le micro",
+	"safe_driving.speaker_on": "Haut-parleur activé",
+	"safe_driving.tap_to_exit": "Appuyez pour quitter le mode conduite",
+
+	"tooltip.invite": "Inviter",
+	"tooltip.swap_camera": "Changer de caméra",
+	"tooltip.volume": "Volume",
+	"tooltip.leave": "Quitter"
+}

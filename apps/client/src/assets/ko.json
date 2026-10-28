@@ -1,0 +1,51 @@
+{
+	"menu.create_meeting": "회의 만들기",
+	"menu.create_p2p_meeting": "P2P 회의 만들기",
+	"menu.p2p_hint": "최대 프라이버시",
+	"menu.footer_about": "분석 없음, 데이터 수집 없음, 완전히 비공개이고 익명입니다. P2P 통화로 직접 연결할 수도 있지만 안정성은 다를 수 있습니다.",
+	"menu.footer_instance": "제한 없는 프라이빗 인스턴스가 필요하신가요?",
+	"menu.return_to_meeting": "회의로 돌아가기",
+
+	"conference.join": "참가",
+	"conference.loading": "로딩 중...",
+	"conference.chat": "채팅",
+	"conference.type_message": "메시지를 입력하세요...",
+	"conference.edit_name": "클릭하여 이름 편집",
+
+	"toast.invite_copied": "초대 링크가 복사되었습니다",
+	"toast.network_issues": "네트워크 문제가 감지되었습니다",
+	"toast.connection_failed": "연결에 실패했습니다",
+
+	"settings.title": "설정",
+	"settings.microphone": "마이크",
+	"settings.speaker": "스피커",
+	"settings.camera": "카메라",
+	"settings.screen_share": "화면 공유",
+	"settings.incoming_video": "수신 영상",
+
+	"settings.device": "장치",
+	"settings.quality": "품질",
+	"settings.blur": "블러",
+	"settings.mirror": "미러링",
+	"settings.receive": "수신",
+
+	"settings.default": "기본",
+	"settings.low": "낮음",
+	"settings.med": "중간",
+	"settings.high": "높음",
+	"settings.on": "켜기",
+	"settings.off": "끄기",
+
+	"settings.language": "언어",
+
+	"safe_driving.title": "안전 운전",
+	"safe_driving.tap_to_mute": "탭하여 음소거",
+	"safe_driving.tap_to_unmute": "탭하여 음소거 해제",
+	"safe_driving.speaker_on": "스피커 켜짐",
+	"safe_driving.tap_to_exit": "탭하여 안전 운전 모드 종료",
+
+	"tooltip.invite": "초대",
+	"tooltip.swap_camera": "카메라 전환",
+	"tooltip.volume": "음량",
+	"tooltip.leave": "나가기"
+}
