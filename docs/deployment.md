@@ -46,3 +46,15 @@ Never place administrative SSH keys or runtime secrets in this repository.
 Application build contexts and generic configuration are documented in
 [self-hosting](self-hosting.md). Hosted-instance access and rollback procedures
 belong in the private operations runbook.
+
+## Build versions
+
+The browser title uses `0.<build number>`, shared by the production client and
+self-hosted image. `scripts/build-version.sh` adds 91 to the workflow run number:
+run 10 is `0.101`, continuing beyond the archived client's build 100. Failed
+runs and PR checks can leave gaps; reruns keep their original version.
+Keep this workflow's counter when editing it; a replacement workflow needs its
+offset adjusted to preserve the sequence.
+
+Public images carry the numeric version tag and OCI version label as well as
+`latest`, the full source SHA tag and the separate OCI revision label.

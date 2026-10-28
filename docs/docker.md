@@ -96,7 +96,8 @@ not certify every firewall/NAT combination.
 
 ## Updates and backups
 
-`latest` follows the tested main branch. The full source revision is also an
+`latest` follows the tested main branch. Numbered versions such as `0.101`
+match the version shown in the browser title. The full source revision is also an
 image tag for reproducible deployments; use that tag or an immutable digest to
 pin an installation. With Compose, set `SOZVON_IMAGE` to that full reference.
 

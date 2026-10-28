@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 test("home renders and toggles P2P with keyboard and pointer", async({ page }, testInfo) => {
 	const errors = []; page.on("pageerror", (error) => errors.push(error.message));
 	await page.goto("/");
+	await expect(page).toHaveTitle(`sozvon ${process.env.VERSION || "local"}`);
 	await expect(page.getByRole("button", { name: /Create meeting|Создать/ })).toBeVisible();
 	await expect(page.locator("body")).toHaveCSS("background-color", "rgb(16, 16, 16)");
 	const toggle = page.getByRole("switch", { name: "P2P" });
