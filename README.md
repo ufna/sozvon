@@ -155,5 +155,3 @@ to the applications, Telegram integration and project maintenance.
 [Contribution credits and preserved authorship](CONTRIBUTORS.md).
 
 [MIT](LICENSE)
-
-<sub>Screenshots show the running local demo with synthetic participants, messages and local avatar fixtures. No live calls or camera feeds were captured.</sub>
