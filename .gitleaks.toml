@@ -1,0 +1,9 @@
+title = "sozvon secret scanning"
+[extend]
+useDefault = true
+[[allowlists]]
+description = "Public loopback-only SFU fixture credential"
+condition = "AND"
+paths = ['''(^|/)apps/client/tests/fixtures/(api\.js|livekit\.yaml)$''']
+regexTarget = "secret"
+regexes = ['''^test-secret-for-isolated-integration-validation-20261023$''']

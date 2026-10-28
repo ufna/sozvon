@@ -8,8 +8,7 @@ function pngSize(body) {
 }
 
 for (const [ key, name, domain, html, language ] of [
-	[ "sozvon", "Sozvon", "sozvon.now", "/index.html", "ru" ],
-	[ "govoice", "GoVoice", "govoice.now", "/index-govoice.html", "en" ],
+	[ "sozvon", "sozvon", "sozvon.now", "/index.html", "ru" ],
 ]) {
 	test(`${name} exposes its link preview and install identity without JavaScript`, async({ page, request }) => {
 		await page.goto(html);

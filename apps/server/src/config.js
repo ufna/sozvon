@@ -25,7 +25,7 @@ export function createConfig(env = process.env) {
 	return {
 		devMode, host, version: env.VERSION || "local",
 		bind: env.BIND_ADDRESS || "127.0.0.1", port: integer("PORT", 4001),
-		allowedOrigins: (env.ALLOWED_ORIGINS || "https://sozvon.now,https://sozvon.app,https://govoice.now").split(",").map((s) => s.trim()),
+		allowedOrigins: (env.ALLOWED_ORIGINS || "http://localhost:4000,http://127.0.0.1:4000").split(",").map((s) => s.trim()),
 		signalingSecret: required("SIGNALING_SECRET"),
 		liveKit: { key: env.LIVE_KEY || "devkey", secret: required("LIVE_SECRET"), serverUrl: liveKitServerUrl, publicSocket },
 	};

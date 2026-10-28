@@ -1,7 +1,7 @@
 {
 	"id": "/",
-	"name": "Sozvon",
-	"short_name": "Sozvon",
+	"name": "sozvon",
+	"short_name": "sozvon",
 	"description": "Видеозвонки без регистрации.",
 	"lang": "ru",
 	"start_url": "/",

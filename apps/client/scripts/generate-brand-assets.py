@@ -44,8 +44,7 @@ for size in [192, 512]:
     (PUBLIC / f"icon-maskable-{size}.png").write_bytes(png(maskable, size))
 
 for key, name, domain, description, language in [
-    ("sozvon", "Sozvon", "sozvon.now", "Видеозвонки без регистрации.", "ru"),
-    ("govoice", "GoVoice", "govoice.now", "Video calls. No sign-up.", "en"),
+    ("sozvon", "sozvon", "sozvon.now", "Видеозвонки без регистрации.", "ru"),
 ]:
     lockup = ET.parse(PUBLIC / f"brand/v2/zov-{key}-lockup.svg").getroot()
     width = float(lockup.attrib["viewBox"].split()[2])
@@ -65,5 +64,5 @@ for key, name, domain, description, language in [
         "icons": [{"src": f"/{prefix}{size}.png?v={VERSION}", "sizes": f"{size}x{size}", "type": "image/png", "purpose": purpose}
                   for prefix, purpose in [("icon-", "any"), ("icon-maskable-", "maskable")] for size in [192, 512]],
     }
-    filename = "manifest.json" if key == "sozvon" else "manifest-govoice.json"
+    filename = "manifest.json"
     (PUBLIC / filename).write_text(json.dumps(manifest, ensure_ascii=False, indent="\t") + "\n")

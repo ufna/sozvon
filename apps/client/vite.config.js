@@ -1,5 +1,3 @@
-import { readFile, writeFile } from "node:fs/promises";
-
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -21,20 +19,6 @@ export default defineConfig({
 	plugins: [
 		react(),
 		tailwindcss(),
-		{
-			name: "brand-html",
-			async writeBundle({ dir }) {
-				const html = await readFile(path.join(dir, "index.html"), "utf8");
-				const govoice = html.replaceAll("Sozvon", "GoVoice")
-					.replaceAll("sozvon.now", "govoice.now")
-					.replaceAll("og-sozvon", "og-govoice")
-					.replaceAll("Видеозвонки без регистрации.", "Video calls. No sign-up.")
-					.replace("lang=\"ru\"", "lang=\"en\"")
-					.replace("ru_RU", "en_US")
-					.replace("/manifest.json", "/manifest-govoice.json");
-				await writeFile(path.join(dir, "index-govoice.html"), govoice);
-			},
-		},
 	],
 	resolve: {
 		alias: {

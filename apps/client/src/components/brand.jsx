@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import govoiceWordmark from "@/assets/govoice-wordmark.svg?raw";
 import sozvonWordmark from "@/assets/sozvon-wordmark.svg?raw";
 import { BRAND_NAMES, getIdentity, getLogo, logoPath } from "@/utils/brand.js";
 
 // Bundled vector lettering keeps the logo stable while interface fonts load.
-const WORDMARKS = { sozvon: sozvonWordmark, govoice: govoiceWordmark };
+const WORDMARKS = { sozvon: sozvonWordmark };
 
 export default function Brand({ compact = false }) {
 	const [ choice, setChoice ] = useState(() => ({ logo: getLogo(), identity: getIdentity() }));

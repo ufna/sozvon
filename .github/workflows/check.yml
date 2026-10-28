@@ -1,0 +1,24 @@
+name: Check
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+      - run: npm run install:apps
+      - run: npm run lint
+      - run: npm run test:server
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium webkit
+        working-directory: apps/client
+      - run: npm run test:smoke
+      - run: npm run test:integration
+      - name: Scan full history for secrets
+        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.30.1 git /repo --config /repo/.gitleaks.toml --redact

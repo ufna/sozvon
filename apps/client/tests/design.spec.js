@@ -2,19 +2,16 @@ import { expect, test } from "@playwright/test";
 
 test.use({ reducedMotion: "reduce" });
 
-test("logo selection updates the interface and survives reload", async({ page }) => {
-	await page.goto("/design?view=brand");
-	const cards = page.locator("article");
-	await expect(cards).toHaveCount(3);
-	await page.getByRole("button", { name: "GoVoice", exact: true }).click();
-	await cards.nth(1).getByRole("button").click();
-	await expect(cards.nth(1).getByRole("button")).toHaveAttribute("aria-pressed", "true");
-	await page.getByRole("button", { name: "Главная", exact: true }).click();
-	await expect(page.locator(".brand")).toHaveAccessibleName("GoVoice");
-	await expect(page.locator(".brand-symbol")).toHaveAttribute("style", /most-mark.svg/);
+test("the sozvon identity stays fixed despite legacy browser preferences", async({ page }) => {
+	await page.addInitScript(() => {
+		localStorage.setItem("govoice.identity", "govoice");
+		localStorage.setItem("sozvon.logo", "most");
+	});
+	await page.goto("/design?view=home");
+	await expect(page.locator(".brand")).toHaveAccessibleName("sozvon");
+	await expect(page.locator(".brand-symbol")).toHaveAttribute("style", /zov-mark.svg/);
 	await page.reload();
-	await expect(page.locator(".brand")).toHaveAccessibleName("GoVoice");
-	await expect(page.locator(".brand-symbol")).toHaveAttribute("style", /most-mark.svg/);
+	await expect(page.locator(".brand")).toHaveAccessibleName("sozvon");
 });
 
 test("demo call controls, chat and settings work without media access", async({ page }) => {
@@ -360,7 +357,7 @@ for (const width of [ 1440, 320 ]) {
 }
 
 for (const hostname of [ "sozvon.now", "call.sozvon.now", "govoice.now", "www.govoice.now" ]) {
-	test(`the domain determines the production brand on ${hostname}`, async({ page, baseURL }) => {
+	test(`the sozvon identity is independent of the domain on ${hostname}`, async({ page, baseURL }) => {
 		await page.route(/^https?:\/\/(?:[\w-]+\.)*(?:sozvon|govoice)\.now\//, async(route) => {
 			const url = new URL(route.request().url());
 			const response = await route.fetch({ url: new URL(url.pathname + url.search, baseURL).href });
@@ -368,7 +365,7 @@ for (const hostname of [ "sozvon.now", "call.sozvon.now", "govoice.now", "www.go
 		});
 		await page.addInitScript(() => localStorage.setItem("govoice.identity", location.hostname.includes("govoice") ? "sozvon" : "govoice"));
 		await page.goto(`https://${hostname}/`);
-		const brand = hostname.includes("govoice") ? "GoVoice" : "Sozvon";
+		const brand = "sozvon";
 		await expect(page.locator(".brand")).toHaveAccessibleName(brand);
 		await expect(page).toHaveTitle(new RegExp(`^${brand}(?: |$)`));
 	});

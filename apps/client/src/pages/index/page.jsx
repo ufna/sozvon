@@ -1349,7 +1349,7 @@ export function MenuPage({ onCreatePreview, onReturnPreview }) {
 				<label className={styles.p2p_row} title={t("menu.p2p_explanation")}><button className={cn(styles.main_p2p_switch, p2p && styles.main_p2p_switch_on)} role="switch" aria-label="P2P" aria-checked={p2p} onClick={() => setP2p(!p2p)}><span className={styles.main_p2p_switch_thumb} /></button><span>P2P</span></label>
 			</div>
 		</main>
-		<footer className={styles.home_footer}><a href="mailto:go@sozvon.now" aria-label="go@sozvon.now" title="go@sozvon.now"><i aria-hidden="true" className="fa-regular fa-envelope" /></a><a href="https://t.me/govoicenow_bot" target="_blank" rel="noreferrer" aria-label="Telegram" title="Telegram"><i aria-hidden="true" className="fa-brands fa-telegram" /></a></footer>
+		<footer className={styles.home_footer}><a href="https://github.com/ufna/sozvon" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><i aria-hidden="true" className="fa-brands fa-github" /></a></footer>
 		{settingsOpen && <SettingsPopup controller={null} onClose={() => setSettingsOpen(false)} />}
 	</div>;
 }

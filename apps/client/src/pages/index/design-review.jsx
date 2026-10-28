@@ -6,7 +6,6 @@ import Icon from "@/components/icon.jsx";
 import { RoomData } from "@/data/room-data.js";
 import root from "@/data/root-data.js";
 import { UserData } from "@/data/user-data.js";
-import { BRAND_NAMES, getIdentity, getLogo } from "@/utils/brand.js";
 import { applyPalette, getPalette } from "@/utils/palette.js";
 
 import styles from "./design-review.module.css";
@@ -67,49 +66,12 @@ function prepareRoom(entered) {
 	};
 }
 
-function LogoGallery({ palette }) {
-	function signature(path) {
-		return palette === "studio" || palette === "graphite" ? path : path.replace(/\.svg$/, `-${palette === "blue" ? "blue" : "mono"}.svg`);
-	}
-	const [ concepts, setConcepts ] = useState([]);
-	const [ error, setError ] = useState(false);
-	const [ selected, setSelected ] = useState(getLogo);
-	const [ identity, setIdentity ] = useState(getIdentity);
-	useEffect(() => {
-		let active = true;
-		fetch("/brand/v2/manifest.json").then((response) => {
-			if (!response.ok) throw new Error(); return response.json();
-		}).then((data) => {
-			if (active) setConcepts(data.concepts);
-		}).catch(() => {
-			if (active) setError(true);
-		});
-		return () => {
-			active = false;
-		};
-	}, []);
-	function choose(id) {
-		localStorage.setItem("sozvon.logo", id);
-		setSelected(id);
-		window.dispatchEvent(new Event("sozvon:brand"));
-	}
-	function chooseIdentity(id) {
-		localStorage.setItem("govoice.identity", id);
-		setIdentity(id);
-		window.dispatchEvent(new Event("sozvon:brand"));
-	}
+function LogoGallery() {
 	return <div className={styles.gallery}>
-		<div className={styles.gallery_header}><Brand /><div className={styles.identity_switch} role="group" aria-label="Название">{Object.entries(BRAND_NAMES).map(([ id, name ]) => <button key={id} aria-pressed={identity === id} onClick={() => chooseIdentity(id)}>{name}</button>)}</div></div>
-		{error && <p role="alert">Не удалось загрузить варианты. Обновите страницу.</p>}
-		<div className={styles.logo_grid}>{concepts.map((concept, i) => <article className={styles.logo_card} key={concept.id} data-selected={selected === concept.id}>
-			<div className={styles.card_top}>0{i + 1}</div>
-			<div className={styles.logo_canvas}><span className={styles.logo_symbol} role="img" aria-label={`Логотип «${concept.name}»`} style={{ "--brand-mask": `url(${concept.mark})` }} /></div>
-			<div className={styles.wordmark_preview}><a href={signature(concept.lockup)} download title="Sozvon SVG"><img src={signature(concept.lockup)} alt={`Sozvon — ${concept.name}`} /></a><a href={signature(concept.govoiceLockup)} download title="GoVoice SVG"><img src={signature(concept.govoiceLockup)} alt={`GoVoice — ${concept.name}`} /></a></div>
-			<div className={styles.logo_sizes}><span><img src={`/brand/v2/${concept.id}-white.svg`} width="16" height="16" alt="" />16</span><span><img src={`/brand/v2/${concept.id}-white.svg`} width="24" height="24" alt="" />24</span><span><img src={`/brand/v2/${concept.id}-white.svg`} width="32" height="32" alt="" />32</span><span className={styles.light_sample}><img src={`/brand/v2/${concept.id}-black.svg`} width="24" height="24" alt="" /></span></div>
-			<div className={styles.card_description}><h2>{concept.name}</h2></div>
-			<button className={styles.choose_button} aria-pressed={selected === concept.id} onClick={() => choose(concept.id)}>{selected === concept.id ? <><Icon name="check" size={17} />Выбран</> : <>Выбрать<Icon name="arrow" size={17} /></>}</button>
-			<div className={styles.downloads}><a href={concept.mark} download>SVG <span>↓</span></a><a href={`/brand/v2/${concept.id}-mark.png`} download>PNG <span>↓</span></a></div>
-		</article>)}</div>
+		<div className={styles.gallery_header}><Brand /></div>
+		<div className={styles.logo_canvas}><img src="/brand/v2/zov-mark.svg" width="128" height="128" alt="sozvon" /></div>
+		<p>sozvon · Zov</p>
+		<div className={styles.downloads}><a href="/brand/v2/zov-mark.svg" download>SVG ↓</a><a href="/brand/v2/zov-mark.png" download>PNG ↓</a></div>
 	</div>;
 }
 
@@ -135,7 +97,7 @@ export default function DesignReview() {
 	useEffect(() => {
 		const originalLanguage = root.settings.language;
 		const originalTitle = document.title;
-		document.title = "Sozvon / GoVoice";
+		document.title = "sozvon";
 		runInAction(() => {
 			root.settings.language = "ru";
 		});

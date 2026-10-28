@@ -1,0 +1,9 @@
+name: sozvon
+services:
+  sfu:
+    build:
+      context: ./apps/server
+      dockerfile: Dockerfile.livekit
+    network_mode: host
+    volumes:
+      - ./.local/livekit.yaml:/etc/livekit/config.yaml:ro

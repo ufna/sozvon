@@ -1,17 +1,11 @@
-export const BRAND_NAMES = { sozvon: "Sozvon", govoice: "GoVoice" };
+export const BRAND_NAMES = { sozvon: "sozvon" };
 
 export function getLogo() {
-	const saved = localStorage.getItem("sozvon.logo");
-	return [ "zov", "most", "dialog" ].includes(saved) ? saved : "zov";
+	return "zov";
 }
 
 export function getIdentity() {
-	if (location.pathname === "/design") {
-		const saved = localStorage.getItem("govoice.identity");
-		if (Object.hasOwn(BRAND_NAMES, saved)) return saved;
-	}
-	const hostname = location.hostname.toLowerCase().replace(/\.$/, "");
-	return hostname === "govoice.now" || hostname.endsWith(".govoice.now") ? "govoice" : "sozvon";
+	return "sozvon";
 }
 
 export function logoPath(logo, identity) {

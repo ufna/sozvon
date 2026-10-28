@@ -1,0 +1,18 @@
+{
+  "name": "sozvon",
+  "private": true,
+  "scripts": {
+    "install:apps": "npm --prefix apps/client ci --ignore-scripts && npm --prefix apps/server ci --ignore-scripts",
+    "dev:client": "npm --prefix apps/client run dev",
+    "dev:server": "npm --prefix apps/server run dev",
+    "build": "npm --prefix apps/client run build",
+    "lint": "npm --prefix apps/client run lint && npm --prefix apps/server run lint",
+    "test:server": "npm --prefix apps/server test",
+    "test:smoke": "npm --prefix apps/client run test:smoke",
+    "test:integration": "npm --prefix apps/client run test:integration",
+    "setup:local": "node scripts/setup-local.mjs"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  }
+}
