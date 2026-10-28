@@ -1,7 +1,7 @@
 # sozvon
 
 Self-hosted video meetings: React browser client, Node.js API and P2P signaling,
-with a separate LiveKit SFU. One name and one Zov logo across all deployments.
+with a separate LiveKit SFU and optional Telegram bot. One name and one Zov logo across all deployments.
 
 This repository is the destination for new product development. It is private
 while the release audit and license decision are pending. Production deployment
@@ -33,6 +33,7 @@ http://localhost:4001/readyz.
 ```bash
 npm run lint
 npm run test:server
+npm run test:bot
 npm run build
 cd apps/client
 npx playwright install --with-deps chromium webkit
@@ -48,6 +49,7 @@ production service. `/design` provides local UI previews without media access.
 
 - `apps/client`: browser application, Dockerfile and browser/media tests.
 - `apps/server`: API, signaling, security tests and patched SFU build inputs.
+- `apps/bot`: Telegram integration; see its README for setup.
 - `scripts`: local configuration setup.
 - `compose.yaml`: local SFU, independent of production infrastructure.
 

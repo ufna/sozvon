@@ -1,6 +1,6 @@
 # Contributors
 
-Client and server contributions before the monorepo migration:
+Client, server and Telegram bot contributions before the monorepo migration:
 
 - Prudnikov Nikolay
 - Vladimir Alyamkin

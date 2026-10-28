@@ -15,6 +15,7 @@ jobs:
       - run: npm run install:apps
       - run: npm run lint
       - run: npm run test:server
+      - run: npm run test:bot
       - run: npm run build
       - run: npx playwright install --with-deps chromium webkit
         working-directory: apps/client

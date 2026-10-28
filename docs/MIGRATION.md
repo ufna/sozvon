@@ -22,16 +22,20 @@
 
 ## Production handover
 
-The third repository has not been unambiguously identified. `ufna/hgdev-infra`
-is a possible infrastructure repository; it has not been copied or modified.
-Telegram/Slack bots also remain outside this initial client/server import.
+The third source is `ufna/voice-bot-tg`, present locally as `voice-bot`.
+Bot snapshot: `c16ac2337f159a9b7c105a14a71a2bb55f1f6034`.
+Its tracked product snapshot is imported into `apps/bot`, excluding deployment
+files and history. Telegram branding is unified and SITE_URL is configurable.
+The separate Slack bot is outside this migration. `ufna/hgdev-infra` contains
+Voice infrastructure roles and operational documentation; those remain private
+and have not been modified.
 
 Existing deployments still consume the legacy repositories. Do not archive them
 or disable their workflows until a replacement deployment is validated.
 The new repository is ready for product changes; deploying those changes needs
 the following explicit operational cutover:
 
-1. Identify the private ops destination and transfer environment configuration,
+1. Use the private infrastructure repository for environment configuration,
    deployment scripts and existing rollback procedures there.
 2. Build versioned client/API/SFU artifacts from this repository, keeping the
    build contexts at apps/client and apps/server. Publish immutable digests.
@@ -43,3 +47,14 @@ the following explicit operational cutover:
 
 No production secrets, DNS, running services or legacy repository settings were
 changed by this import.
+
+## Validation
+
+Node 24: linters, five server security tests and two bot locale/configuration
+tests passed. All 32 Chromium UI checks
+passed. Both SFU and P2P two-participant media scenarios passed against the
+imported API and local patched SFU. The isolated SFU fixture also passed.
+Local WebKit execution needs missing ICU/Flite libraries; CI runs both browsers
+on Ubuntu. Full new-history Gitleaks scan passed with only the exact loopback
+test credential allowlisted. Manual privacy/rights review and license selection
+remain required before public release.
