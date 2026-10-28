@@ -1,75 +1,78 @@
 import dotenv from "dotenv";
 
 dotenv.config({ quiet: true });
-const site = new URL(process.env.SITE_URL || "https://sozvon.now");
-if (![ "http:", "https:" ].includes(site.protocol) || site.username || site.password || site.pathname !== "/" || site.search || site.hash) {
- throw new Error("SITE_URL must be an HTTP(S) origin without credentials");
+function siteFor(defaultUrl) {
+ const site = new URL(process.env.SITE_URL || defaultUrl);
+ if (![ "http:", "https:" ].includes(site.protocol) || site.username || site.password || site.pathname !== "/" || site.search || site.hash) {
+  throw new Error("SITE_URL must be an HTTP(S) origin without credentials");
+ }
+ return site;
 }
-const siteUrl = site.origin;
-const siteHost = site.host;
+const ruSite = siteFor("https://sozvon.now");
+const enSite = siteFor("https://govoice.now");
 
 export const locales = {
 	ru: {
-		siteUrl: `${siteUrl}`,
-		inlineTitle: (topic) => topic ? `Созвон: ${topic}` : "sozvon",
+		siteUrl: `${ruSite.origin}`,
+		inlineTitle: (topic) => topic ? `Созвон: ${topic}` : "Созвон!",
 		inlineDescription: "Начать созвон прямо сейчас",
-		messageHeader: (topic) => topic ? `🎙 <b>Созвон: ${topic}</b>` : "🎙 <b>sozvon</b>",
+		messageHeader: (topic) => topic ? `🎙 <b>Созвон: ${topic}</b>` : "🎙 <b>Созвон!</b>",
 		messageBody: (url) => `Присоединяйся к голосовому звонку прямо <a href="${url}">сейчас</a>!`,
 		buttonLabel: "🎙 Подключиться",
 		profileDescription:
 			"Мгновенные голосовые звонки — без регистрации, без аккаунтов, полностью анонимно.\n\n" +
 			"Поделись приглашением в любом чате одним касанием.\n\n" +
-			`🌐 ${siteHost}`,
+			`🌐 ${ruSite.host}`,
 		startText: (username) =>
 			"Привет! 👋\n\n" +
 			"Два способа начать созвон:\n\n" +
 			`📲 <b>Инлайн</b> — напиши <code>@${username}</code> в любом чате, выбери результат — приглашение отправлено.\n\n` +
 			"🔗 <b>Здесь</b> — /sozvon создаст ссылку прямо в этом чате, чтобы разослать самому.\n\n" +
-			`🌐 <a href=\"${siteUrl}\">${siteHost}</a>`,
+			`🌐 <a href=\"${ruSite.origin}\">${ruSite.host}</a>`,
 		helpText: (username) =>
 			"<b>Помощь</b>\n\n" +
 			`📲 <b>Инлайн</b> — <code>@${username}</code> в любом чате\n` +
 			"🔗 <b>Команда</b> — /sozvon создаст ссылку здесь\n\n" +
-			`🌐 <a href=\"${siteUrl}\">${siteHost}</a>`,
+			`🌐 <a href=\"${ruSite.origin}\">${ruSite.host}</a>`,
 		aboutText: (username) =>
-			"👋 Привет! Я бот <b>sozvon</b>.\n\n" +
+			"👋 Привет! Я бот <b>Созвон</b>.\n\n" +
 			"Предлагаю бесплатные приватные звонки для тебя и твоих друзей — в любой момент. " +
 			"Можно шарить экран, стримить доту — всё тянет!\n\n" +
 			`📲 Напиши <code>@${username}</code> в любом чате и выбери результат — звонок готов!\n` +
 			`🤖 <a href="https://t.me/${username}">Открыть бота</a>\n\n` +
-			`🌐 <a href=\"${siteUrl}\">${siteHost}</a>`,
+			`🌐 <a href=\"${ruSite.origin}\">${ruSite.host}</a>`,
 		inlineAboutTitle: "О боте",
 		inlineAboutDescription: "Бесплатные приватные звонки, шаринг экрана и стриминг",
 	},
 	en: {
-		siteUrl: `${siteUrl}`,
-		inlineTitle: (topic) => topic ? `sozvon: ${topic}` : "sozvon!",
+		siteUrl: `${enSite.origin}`,
+		inlineTitle: (topic) => topic ? `Go Voice: ${topic}` : "Go Voice!",
 		inlineDescription: "Start a voice call right now",
-		messageHeader: (topic) => topic ? `🎙 <b>sozvon: ${topic}</b>` : "🎙 <b>sozvon!</b>",
+		messageHeader: (topic) => topic ? `🎙 <b>Go Voice: ${topic}</b>` : "🎙 <b>Go Voice!</b>",
 		messageBody: (url) => `Join the voice call right <a href="${url}">now</a>!`,
-		buttonLabel: "🎙 sozvon!",
+		buttonLabel: "🎙 Go Voice!",
 		profileDescription:
 			"Instant voice calls — no sign-up, no accounts, fully anonymous.\n\n" +
 			"Share a call invite in any chat with a single tap.\n\n" +
-			`🌐 ${siteHost}`,
+			`🌐 ${enSite.host}`,
 		startText: (username) =>
 			"Hey! 👋\n\n" +
 			"Two ways to start a call:\n\n" +
 			`📲 <b>Inline</b> — type <code>@${username}</code> in any chat, pick the result — invite sent.\n\n` +
-			"🔗 <b>Here</b> — /sozvon creates a link right here for you to share.\n\n" +
-			`🌐 <a href=\"${siteUrl}\">${siteHost}</a>`,
+			"🔗 <b>Here</b> — /govoice creates a link right here for you to share.\n\n" +
+			`🌐 <a href=\"${enSite.origin}\">${enSite.host}</a>`,
 		helpText: (username) =>
 			"<b>Help</b>\n\n" +
 			`📲 <b>Inline</b> — <code>@${username}</code> in any chat\n` +
-			"🔗 <b>Command</b> — /sozvon creates a link here\n\n" +
-			`🌐 <a href=\"${siteUrl}\">${siteHost}</a>`,
+			"🔗 <b>Command</b> — /govoice creates a link here\n\n" +
+			`🌐 <a href=\"${enSite.origin}\">${enSite.host}</a>`,
 		aboutText: (username) =>
-			"👋 Hey! I'm the <b>sozvon</b> bot.\n\n" +
+			"👋 Hey! I'm the <b>Go Voice</b> bot.\n\n" +
 			"Free private calls for you and your friends — anytime. " +
 			"Screen sharing, streaming games — it handles everything!\n\n" +
 			`📲 Type <code>@${username}</code> in any chat and pick the result — call is ready!\n` +
 			`🤖 <a href="https://t.me/${username}">Open the bot</a>\n\n` +
-			`🌐 <a href=\"${siteUrl}\">${siteHost}</a>`,
+			`🌐 <a href=\"${enSite.origin}\">${enSite.host}</a>`,
 		inlineAboutTitle: "About the bot",
 		inlineAboutDescription: "Free private calls, screen sharing and streaming",
 	},

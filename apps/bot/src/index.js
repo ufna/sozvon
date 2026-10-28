@@ -73,10 +73,10 @@ bot.command("about", (ctx) => {
 	ctx.reply(locale.aboutText(ctx.me.username), { parse_mode: "HTML", link_preview_options: { is_disabled: true } });
 });
 
-// /sozvon — create a room on sozvon.now
+// Both commands create a room using the sender's localized service.
 bot.command("sozvon", (ctx) => createRoom(ctx, getLocale(ctx.from.language_code)));
 
-// Legacy command alias, using the same sozvon instance.
+// English command alias.
 bot.command("govoice", (ctx) => createRoom(ctx, getLocale(ctx.from.language_code)));
 
 async function createRoom(ctx, locale) {
@@ -105,9 +105,9 @@ async function setupProfile(api) {
 		}
 	};
 
-	await call(() => api.setMyName("sozvon", { language_code: "ru" }));
-	await call(() => api.setMyName("sozvon", { language_code: "en" }));
-	await call(() => api.setMyName("sozvon"));
+	await call(() => api.setMyName("Созвон!", { language_code: "ru" }));
+	await call(() => api.setMyName("Go Voice!", { language_code: "en" }));
+	await call(() => api.setMyName("Go Voice!"));
 
 	await call(() => api.setMyShortDescription("Голосовые звонки прямо из любого чата", { language_code: "ru" }));
 	await call(() => api.setMyShortDescription("Voice calls right from any chat", { language_code: "en" }));
@@ -127,7 +127,7 @@ async function setupProfile(api) {
 		{ language_code: "ru" },
 	));
 	const enCommands = [
-		{ command: "sozvon", description: "Create a call and get a link" },
+		{ command: "govoice", description: "Create a call and get a link" },
 		{ command: "about", description: "About the bot" },
 		{ command: "start", description: "Get started" },
 		{ command: "help", description: "Help" },
